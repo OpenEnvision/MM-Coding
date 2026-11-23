@@ -1,0 +1,1 @@
+Follow the task's interface restrictions; these capability notes do not grant permission to bypass them.

@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.egg-info/
+.venv/
+.pytest_cache/
+/third_party/
+/data/
+/configs/models.yaml
+/configs/guard.json
+.env
+*.env
+.staging/

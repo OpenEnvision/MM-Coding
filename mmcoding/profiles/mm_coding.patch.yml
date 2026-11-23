@@ -1,0 +1,13 @@
+# Harness mm_coding (MM-Coding): DSH shell/file tools (bash, job_*, read, write, edit,
+# read_image, glob, grep) + the screenshot-only desktop broker (rv_desktop.py --profile observe);
+# the sandbox lets code use the X display (DISPLAY=:0).
+- insert:
+    - id: mcp-desktop
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: desktop
+        transport: stdio
+        command: /usr/bin/socat
+        args: [STDIO, 'UNIX-CONNECT:/run/rv/desktop.sock']
+        toolCallTimeoutMs: 180000
+        failOnStartupError: true

@@ -1,0 +1,41 @@
+# Harness os_helix (OS-Helix): exactly one GUI atomic action or one code block per step, then a
+# screenshot. GUI actions come from the guarded desktop broker (rv_desktop.py --profile
+# act_guarded); code runs through mcp__helix__run_code (guest/helix_code_mcp.py); the sandbox lets
+# code use the X display. All independent code/file/planning channels are disabled; report/ask stay.
+# Context compaction/pruning stays on as in every harness; the HTTP shim (guest/helix_shim.py)
+# additionally keeps only the latest 10 screenshots.
+- insert:
+    - id: mcp-desktop
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: desktop
+        transport: stdio
+        command: /usr/bin/socat
+        args: [STDIO, 'UNIX-CONNECT:/run/rv/desktop.sock']
+        toolCallTimeoutMs: 180000
+        failOnStartupError: true
+- id: tool-bash
+  disabled: true
+- id: tool-jobs
+  disabled: true
+- id: tool-fs
+  disabled: true
+- id: tool-fs-search
+  disabled: true
+- id: tool-todo
+  disabled: true
+- insert:
+    - id: mcp-helix
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: helix
+        transport: stdio
+        command: /usr/bin/python3
+        args:
+          - !!js "`${process.env.RV_HOME}/helix_code_mcp.py`"
+        env:
+          DISPLAY: ':0'
+          HOME: /home/user
+          OSWORLD_DSH_ATTEMPT: !!js process.env.OSWORLD_DSH_ATTEMPT
+        toolCallTimeoutMs: 660000
+        failOnStartupError: true

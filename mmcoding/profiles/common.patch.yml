@@ -1,0 +1,84 @@
+# Shared by every harness (mmcoding/harnesses.py). Applied on top of the DSH `sdk` profile.
+# Paths and credentials come from the environment set by the guest launcher:
+#   RV_LLM_BASE_URL, RV_LLM_API_KEY, RV_HOME
+# host/deploy.py replaces the two __RV_*__ placeholders below before upload: the image byte bound
+# of the harness and the model list rendered from configs/models.yaml.
+# ---------------------------------------------------------------- model route
+- id: llm-pi-ai
+  name: '@deepseek-ai/dsh-llm-pi-ai'
+  config:
+    providers:
+      openai:
+        displayName: OpenAI-compatible endpoint
+        api: openai-completions
+        baseURL: !!js process.env.RV_LLM_BASE_URL
+        apiKeyEnv: RV_LLM_API_KEY
+        # Same transport policy as the official worker's llm-deepseek patch.
+        streamIdleTimeoutMs: 300000
+        # Image-history bound: beyond this much base64 image payload per request the oldest
+        # images become text placeholders (harnesses.Harness.max_request_image_bytes).
+        maxRequestImageBytes: __RV_MAX_REQUEST_IMAGE_BYTES__
+        retryPolicy:
+          mode: normal
+          maxRetries: 5
+          # DSH defaults plus INVALID_REQUEST: an endpoint may intermittently answer 400 for a
+          # request whose identical images succeeded one step earlier (e.g. a timed-out image
+          # download on the endpoint side). Capacity preemption is surfaced as PI_AI_ERROR by the
+          # pinned adapter, not SERVER; retry the same request instead of discarding the episode.
+          retryableCodes: [EMPTY_RESPONSE, RATE_LIMIT, REPLAY_REJECTED, SERVER, TIMEOUT, TRANSPORT, INVALID_REQUEST, PI_AI_ERROR]
+        compat:
+          supportsDeveloperRole: false
+          maxTokensField: max_tokens
+        defaultInput: [text, image]
+        models: __RV_MODELS__
+# ---------------------------------------------------------------- persona
+# Harness-neutral persona (the SDK default says "coding agent").
+- id: system-prompt
+  name: '@deepseek-ai/dsh-system-prompt'
+  config:
+    personaPrefix: You are a computer-use agent powered by the {{model}} model.
+    personaSuffix: Your working directory is {{cwd}}.
+# ---------------------------------------------------------------- shared tool policy
+# Disabled in every harness so the harnesses differ only in their observation/action tools
+# (<harness>.patch.yml). Kept in every harness: todo_write (except OS-Helix),
+# compaction, tool-result pruning, repeat-tool reminders.
+- id: tool-goal            # create_goal / get_goal / update_goal
+  disabled: true
+- id: command-goal
+  disabled: true
+- id: goal-round-driver
+  disabled: true
+- id: tool-ralph           # ralph
+  disabled: true
+- id: plan-mode            # exit_plan_mode
+  disabled: true
+- id: tool-skill           # skill
+  disabled: true
+- id: tool-subagent        # subagent
+  disabled: true
+- id: tool-subagent-fork   # subagent_fork
+  disabled: true
+- id: tool-subagent-control      # send_message / interrupt_agent
+  disabled: true
+- id: tool-subagent-list-agents  # list_agents
+  disabled: true
+- id: tool-workflow        # workflow
+  disabled: true
+- id: tool-web             # web_search / web_fetch (non-shell API channel; out of scope)
+  disabled: true
+# ---------------------------------------------------------------- honest exit
+# Every harness: mcp__report__report_infeasible (guest/report_mcp.py) records that the
+# agent judged the task infeasible with its capabilities; evaluation is unchanged.
+- insert:
+    - id: mcp-report
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: report
+        transport: stdio
+        command: /usr/bin/python3
+        args:
+          - !!js "`${process.env.RV_HOME}/report_mcp.py`"
+        env:
+          OSWORLD_DSH_ATTEMPT: !!js process.env.OSWORLD_DSH_ATTEMPT
+        toolCallTimeoutMs: 30000
+        failOnStartupError: true

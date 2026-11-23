@@ -1,0 +1,1 @@
+If you conclude that the task cannot be completed with your available capabilities, call mcp__report__report_infeasible with the reason, then stop.

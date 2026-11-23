@@ -1,0 +1,58 @@
+{
+  "agents": {
+    "defaults": {
+      "workspace": "PLACEHOLDER_WORKSPACE_DIR",
+      "model": {
+        "primary": "PLACEHOLDER_PROVIDER/PLACEHOLDER_JUDGE_MODEL"
+      },
+      "imageModel": "PLACEHOLDER_PROVIDER/PLACEHOLDER_JUDGE_MODEL"
+    }
+  },
+  "gateway": {
+    "mode": "local",
+    "auth": {
+      "mode": "token",
+      "token": "PLACEHOLDER_GATEWAY_TOKEN"
+    },
+    "port": 18789,
+    "bind": "loopback",
+    "tailscale": {
+      "mode": "off"
+    }
+  },
+  "session": {
+    "dmScope": "per-channel-peer"
+  },
+  "tools": {
+    "profile": "coding"
+  },
+  "models": {
+    "mode": "merge",
+    "providers": {
+      "PLACEHOLDER_PROVIDER": {
+        "baseUrl": "PLACEHOLDER_PROXY_URL",
+        "api": "PLACEHOLDER_API",
+        "apiKey": "PLACEHOLDER_API_KEY",
+        "models": [
+          {
+            "id": "PLACEHOLDER_JUDGE_MODEL",
+            "name": "PLACEHOLDER_JUDGE_MODEL (PLACEHOLDER_PROVIDER)",
+            "contextWindow": 0,
+            "maxTokens": 0,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "reasoning": true
+          }
+        ]
+      }
+    }
+  }
+}

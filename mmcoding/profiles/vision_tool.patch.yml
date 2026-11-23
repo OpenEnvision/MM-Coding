@@ -1,0 +1,30 @@
+# Harness vision_tool (Vision-Tool): the tools of harness cli (no screenshot tool, no image input:
+# unmounting the attachment store unregisters read_image and refuses image results) plus one
+# text-only tool, mcp__vision__ask_vision (guest/vision_mcp.py). It forwards a question and image
+# sources ("screen" or image file paths) to a separate, stateless call of the vision model and
+# returns text.
+- id: attachment-local
+  disabled: true
+- insert:
+    - id: mcp-vision
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: vision
+        transport: stdio
+        command: /usr/bin/python3
+        args:
+          - !!js "`${process.env.RV_HOME}/vision_mcp.py`"
+        env:
+          OSWORLD_DSH_ATTEMPT: !!js process.env.OSWORLD_DSH_ATTEMPT
+          RV_LLM_BASE_URL: !!js process.env.RV_LLM_BASE_URL
+          RV_LLM_API_KEY: !!js process.env.RV_LLM_API_KEY
+          RV_VISION_MODEL: !!js process.env.RV_VISION_MODEL
+          RV_VISION_EFFORT: !!js process.env.RV_VISION_EFFORT
+          RV_VISION_COORDS: !!js process.env.RV_VISION_COORDS
+          RV_VISION_THINKING: !!js process.env.RV_VISION_THINKING
+          DISPLAY: ':0'
+          HOME: /home/user
+        # One answer takes 10-120 s; image uploads can be slow, so the server allows
+        # 600 s per request and retries within 1200 s.
+        toolCallTimeoutMs: 1260000
+        failOnStartupError: true

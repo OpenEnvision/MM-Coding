@@ -1,0 +1,17 @@
+# Added in every harness, only for tasks that define a user simulator. Exposes one
+# tool, mcp__ask__ask_user, backed by the official question/answer bridge.
+- insert:
+    - id: mcp-ask
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: ask
+        transport: stdio
+        command: /usr/bin/python3
+        args:
+          - !!js "`${process.env.RV_HOME}/ask_user_mcp.py`"
+        env:
+          OSWORLD_DSH_ATTEMPT: !!js process.env.OSWORLD_DSH_ATTEMPT
+          OSWORLD_DSH_CODE: !!js process.env.OSWORLD_DSH_CODE
+        # The official bridge waits up to 300 s for the simulator.
+        toolCallTimeoutMs: 310000
+        failOnStartupError: true

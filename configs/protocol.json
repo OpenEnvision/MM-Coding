@@ -1,0 +1,60 @@
+{
+  "_comment": "Run defaults of the paper protocol, one block per benchmark; the runners read them and CLI flags override single values. vision_* configure the vision model of the vision_tool harness. Settings that are null name models the user must supply (an error at launch says how).",
+  "osworld2": {
+    "call_budget": 500,
+    "timeout_s": 57600,
+    "reasoning_effort": "max",
+    "max_tokens": 65536,
+    "vision_model": "qwen3.8-27b",
+    "vision_reasoning_effort": "off",
+    "vision_thinking": "off",
+    "vision_coords": "norm1000",
+    "vm_ram": "8G",
+    "vm_cores": "4",
+    "client_password": "osworld-public-evaluation",
+    "benchmark_release": "osworld-v2.1",
+    "evaluator_provider": "openai_compatible",
+    "evaluator_model": null,
+    "evaluator_api_key_env": "OSWORLD_EVAL_API_KEY",
+    "user_simulator_model": null
+  },
+  "weavebench": {
+    "call_budget": 500,
+    "timeout_s": 57600,
+    "reasoning_effort": "max",
+    "max_tokens": 65536,
+    "vision_model": "qwen3.8-27b",
+    "vision_reasoning_effort": "off",
+    "vision_thinking": "off",
+    "vision_coords": "norm1000",
+    "vm_ram": "8G",
+    "vm_cores": "4",
+    "client_password": "password",
+    "judge_model": null,
+    "judge_thinking": "medium",
+    "judge_timeout_s": 3600,
+    "judge": {
+      "provider": "judge",
+      "api": "openai-responses",
+      "base_url_env": "WEAVEBENCH_JUDGE_BASE_URL",
+      "api_key_env": "WEAVEBENCH_JUDGE_API_KEY",
+      "proxy_port": 18081,
+      "context_window": 262144,
+      "max_tokens": 16384
+    }
+  },
+  "ale": {
+    "call_budget": 500,
+    "timeout_s": 57600,
+    "reasoning_effort": "max",
+    "max_tokens": 65536,
+    "vision_model": "qwen3.8-27b",
+    "vision_reasoning_effort": "off",
+    "vision_thinking": "off",
+    "vision_coords": "norm1000",
+    "eval_timeout_s": 7200,
+    "judge_timeout_s": 900,
+    "client_password": "password",
+    "pass_threshold": 0.999
+  }
+}

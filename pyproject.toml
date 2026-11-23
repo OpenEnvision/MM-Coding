@@ -1,0 +1,27 @@
+[project]
+name = "mmcoding"
+version = "0.1.0"
+description = "Harnesses of Rethinking Vision in Computer-Use Agents: GUI, OS-Helix, MM-Coding, Vision-Tool and CLI on OSWorld 2.0, WeaveBench and ALE"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+# scripts/setup.sh installs this package with --no-deps into the pinned upstream environments
+# (OSWorld-V2 for OSWorld 2.0 and WeaveBench, ALE for ALE); their lock files provide the runtime
+# dependencies, plus paramiko and PyYAML.
+dependencies = []
+
+[project.urls]
+"Project page" = "https://shaoyou01.github.io/rethinking-vision/"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["mmcoding*"]
+
+[tool.setuptools.package-data]
+"mmcoding" = ["guest/*.py", "guest/*.json", "profiles/*.yml", "prompts/*.txt", "prompts/*/*.txt"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

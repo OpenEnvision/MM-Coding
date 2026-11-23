@@ -1,0 +1,15 @@
+python-docx
+openpyxl
+python-pptx
+pandas
+xlrd
+odfpy
+pypdf
+pdfplumber
+pymupdf
+websocket-client
+opencv-python-headless
+XlsxWriter
+python-xlib
+mss
+pyautogui

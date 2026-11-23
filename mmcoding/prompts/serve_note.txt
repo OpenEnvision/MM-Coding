@@ -1,0 +1,1 @@
+Anything you start (services, applications) is stopped when you finish. If something must keep running after you finish, start it with: rv-serve --name NAME [--port PORT] --cwd /absolute/dir -- COMMAND ARGS (it then persists; with --port it must listen on 0.0.0.0:PORT and becomes reachable on the desktop at localhost:PORT).

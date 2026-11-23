@@ -1,0 +1,27 @@
+{
+ "_doc": "Optional network guard (mmcoding/host/guard.py, guard_addon.py). Copy to configs/guard.json or set RV_GUARD_CONFIG. Paths: $VARS and ~ are expanded, relative paths are relative to the repository root.",
+ "rules_version": "1",
+ "port": 8893,
+ "_port": "mitmdump --mode transparent --listen-port of the proxy",
+ "service": "rv-guard.service",
+ "_service": "systemd unit running the proxy (checked before every case); null = only check that the port accepts connections",
+ "registry": "/run/rv-guard/registry",
+ "_registry": "per-container entries written by guard.py and read by guard_addon.py",
+ "log_dir": "data/guard/logs",
+ "ca_cert": "~/.mitmproxy/mitmproxy-ca-cert.pem",
+ "ca_sha256": null,
+ "_ca_sha256": "optional pin of ca_cert",
+ "nss_deb_dir": "data/assets/guard/debs",
+ "nss_debs": {
+  "libnspr4_4.35-0ubuntu0.22.04.1_amd64.deb": "b3c96e4a61675c87f8d9655109346748847d859abc95f20493159d06b5aa30ef",
+  "libnss3-tools_3.98-0ubuntu0.22.04.5_amd64.deb": "7df3d46f262f5a719599917139de023a3f82e5a1a8887cda2c36435cafe5158e",
+  "libnss3_3.98-0ubuntu0.22.04.5_amd64.deb": "75f3879ab9969a930b5bf4b9229345d57e2ebe310ad8ce58c9d91393d823b236"
+ },
+ "_nss_debs": "Ubuntu 22.04 packages providing certutil for images without it (unpacked privately, never installed); file name -> sha256",
+ "task_allow": null,
+ "_task_allow": "optional JSON {\"tasks\": {task_id: [url fragment, ...]}} of task input URLs that the rules would otherwise block (see guard_addon.py)",
+ "passthrough_hosts": [],
+ "_passthrough_hosts": "host names (and their subdomains) whose TLS is never intercepted, e.g. the model endpoint",
+ "direct_cidrs": [],
+ "_direct_cidrs": "destination ranges besides the private ranges that bypass the proxy"
+}

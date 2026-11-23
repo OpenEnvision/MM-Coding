@@ -1,0 +1,54 @@
+# Models of the OpenAI-compatible route (provider id `openai`, endpoint RV_LLM_BASE_URL, key
+# RV_LLM_API_KEY). Copy to configs/models.yaml and edit; host/deploy.py renders this list into
+# profiles/common.patch.yml at deploy (this example is used while configs/models.yaml is absent).
+#
+# Every entry is a DSH model definition of the pi-ai provider: `id` as accepted by your endpoint,
+# context window and output limit in tokens, the selectable reasoning levels (sent as
+# `reasoning_effort`), optional `input` (default: text and image) and `compat` switches.
+# The ids below are the models of the paper; replace them with the ids your endpoint serves.
+models:
+  - id: kimi-k3
+    contextWindow: 262144
+    maxTokens: 65536
+    reasoningEfforts:
+      low: low
+      high: high
+      max: max
+  - id: qwen3.8-max
+    contextWindow: 262144
+    maxTokens: 65536
+    input: [text, image]
+    reasoningEfforts:
+      max: max
+    compat:
+      thinkingFormat: deepseek
+      supportsReasoningEffort: true
+  - id: deepseek-v4.1-flash
+    contextWindow: 262144
+    maxTokens: 65536
+    input: [text, image]
+    reasoningEfforts:
+      max: max
+    compat:
+      thinkingFormat: deepseek
+      supportsReasoningEffort: true
+  # A policy model of the paper and the vision model of Vision-Tool (--vision_model). The vision
+  # tool calls the endpoint directly, so this entry only matters when the model is the policy.
+  - id: qwen3.8-27b
+    contextWindow: 262144
+    maxTokens: 65536
+    input: [text, image]
+    reasoningEfforts:
+      max: max
+    compat:
+      thinkingFormat: deepseek
+      supportsReasoningEffort: true
+  # A text-only model: declare `input: [text]` so no image is ever sent to it, e.g.
+  # - id: my-text-model
+  #   contextWindow: 262144
+  #   maxTokens: 32768
+  #   input: [text]
+  #   reasoningEfforts:
+  #     high: high
+  #   compat:
+  #     thinkingFormat: qwen

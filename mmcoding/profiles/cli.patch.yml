@@ -1,0 +1,5 @@
+# Harness cli (CLI): DSH shell/file tools, no screenshot tool, no image input; the sandbox lets
+# code use the X display. Unmounting the attachment store unregisters read_image (tool-fs
+# registers it only while `attachments` is mounted) and refuses image results.
+- id: attachment-local
+  disabled: true

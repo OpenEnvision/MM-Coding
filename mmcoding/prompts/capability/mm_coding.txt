@@ -1,0 +1,1 @@
+You see the screen through the mcp__desktop__screenshot tool and can view image files with read_image. You act through the shell and file tools (bash, read, write, edit, glob, grep). {with_x} {serve_note}

@@ -1,0 +1,22 @@
+# Harness gui (GUI): screenshot + atomic mouse/keyboard actions through the desktop broker
+# (rv_desktop.py --profile act, outside the sandbox). No shell, file or image-file tools of its
+# own; terminal windows, run dialogs and consoles are ordinary apps whose output is seen only on
+# screenshots.
+- id: tool-bash            # bash
+  disabled: true
+- id: tool-jobs            # job_list / job_output / job_kill
+  disabled: true
+- id: tool-fs              # read / write / edit / read_image
+  disabled: true
+- id: tool-fs-search       # glob / grep
+  disabled: true
+- insert:
+    - id: mcp-desktop
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: desktop
+        transport: stdio
+        command: /usr/bin/socat
+        args: [STDIO, 'UNIX-CONNECT:/run/rv/desktop.sock']
+        toolCallTimeoutMs: 180000
+        failOnStartupError: true

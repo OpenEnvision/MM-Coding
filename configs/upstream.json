@@ -1,0 +1,23 @@
+{
+  "_comment": "Upstream checkouts under $RV_THIRD_PARTY at these commits (scripts/setup.sh clones them, scripts/check_env.sh verifies them). They are never edited: this repository adds its code on top through editable installs.",
+  "OSWorld-V2": {
+    "url": "https://github.com/xlang-ai/OSWorld-V2.git",
+    "ref": "osworld-v2.1",
+    "commit": "3d778a3",
+    "used_for": "OSWorld 2.0 tasks, evaluators, Docker provider and the official DSH runner (run_case); its venv also runs WeaveBench and the tests",
+    "local_additions": "gated task classes evaluation_examples/task_class/task_*.py (scripts/tools/download_osworld_v2_tasks.py, gitignored upstream)"
+  },
+  "WeaveBench": {
+    "url": "https://github.com/weavebench/WeaveBench.git",
+    "ref": "main",
+    "commit": "acf203a",
+    "used_for": "task setup, warmup, deliverable archive and the OpenClaw agent-as-judge (installed editable into the OSWorld-V2 venv)"
+  },
+  "agents-last-exam": {
+    "url": "https://github.com/rdi-berkeley/agents-last-exam.git",
+    "ref": "main",
+    "commit": "9ed80be",
+    "used_for": "ALE v1.1 tasks (start / evaluate) and the QEMU provider, in its own venv",
+    "local_additions": "secret/eval_time/openai.env (ALE's grading model and key, gitignored upstream)"
+  }
+}

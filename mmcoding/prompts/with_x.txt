@@ -1,0 +1,1 @@
+Processes you start can use the graphical display (DISPLAY=:0): they can launch applications, send mouse and keyboard input (for example with xdotool, python-xlib or pyautogui) and capture the screen.
