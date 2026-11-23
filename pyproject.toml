@@ -11,7 +11,7 @@ requires-python = ">=3.11"
 dependencies = []
 
 [project.urls]
-"Project page" = "https://shaoyou01.github.io/rethinking-vision/"
+"Project page" = "https://openenvision.org/rethinking-vision/"
 
 [build-system]
 requires = ["setuptools>=68"]

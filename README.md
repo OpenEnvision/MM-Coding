@@ -1,7 +1,7 @@
 # Rethinking Vision in Computer-Use Agents
 
 Code for *Rethinking Vision in Computer-Use Agents: Decoupling Perception from Action*.
-[Project page](https://shaoyou01.github.io/rethinking-vision/)
+[Project page](https://openenvision.org/rethinking-vision/)
 
 MM-Coding treats computer use as a multimodal coding task. The policy acts through programs, and
 it calls vision as a tool when it needs visual information. This repository contains the five
