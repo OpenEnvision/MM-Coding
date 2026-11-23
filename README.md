@@ -1,7 +1,7 @@
 # Rethinking Vision in Computer-Use Agents
 
 Code for *Rethinking Vision in Computer-Use Agents: Decoupling Perception from Action*.
-[Project page](https://openenvision.org/rethinking-vision/)
+[Project page](https://openenvision.org/Rethinking-CUA-Vision/)
 
 MM-Coding treats computer use as a multimodal coding task. The policy acts through programs, and
 it calls vision as a tool when it needs visual information. This repository contains the five
@@ -78,7 +78,7 @@ tests/                offline tests
 ## Setup
 
 ```bash
-git clone <this repository> mm-coding && cd mm-coding
+git clone https://github.com/OpenEnvision/MM-Coding.git && cd MM-Coding
 scripts/setup.sh          # upstream checkouts at pinned commits, two venvs, sandbox assets
 # VM images and benchmark data: docker/IMAGES.md
 mkdir -p ~/.config/mm-coding && cat > ~/.config/mm-coding/credentials.env <<'EOF'

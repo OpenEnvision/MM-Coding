@@ -3,7 +3,7 @@ message: "If you use this software, please cite the paper below."
 title: "Rethinking Vision in Computer-Use Agents: Decoupling Perception from Action"
 type: software
 license: MIT
-url: "https://openenvision.org/rethinking-vision/"
+url: "https://openenvision.org/Rethinking-CUA-Vision/"
 authors:
   - given-names: Chuan
     family-names: Xiao
